@@ -1,0 +1,54 @@
+FIX.4.4
+<message id="E" msgcat="app" msgtype="E" name="NewOrderList">
+  <field id="66" name="ListID" required="Y"/>
+  <field id="394" name="BidType" required="Y">
+    <value description="NON_DISCLOSED" enum="1"/>
+    <value description="DISCLOSED_STYLE" enum="2"/>
+    <value description="NO_BIDDING_PROCESS" enum="3"/>
+  <field>
+  <field id="68" name="TotNoOrders" required="Y"/>
+  <group id="73" name="NoOrders" required="Y">
+    <field id="11" name="ClOrdID" required="Y"/>
+    <field id="67" name="ListSeqNo" required="Y"/>
+    <field id="55" name="Symbol" required="Y"/>
+    <group id="711" name="NoUnderlyings" required="N">
+      <field id="311" name="UnderlyingSymbol" required="Y"/>
+    <group>
+    <field id="54" name="Side" required="Y">
+      <value description="BUY" enum="1"/>
+      <value description="SELL" enum="2"/>
+      <value description="BUY_MINUS" enum="3"/>
+      <value description="SELL_PLUS" enum="4"/>
+      <value description="SELL_SHORT" enum="5"/>
+      <value description="SELL_SHORT_EXEMPT" enum="6"/>
+      <value description="UNDISCLOSED" enum="7"/>
+      <value description="CROSS" enum="8"/>
+      <value description="CROSS_SHORT" enum="9"/>
+      <value description="CROSS_SHORT_EXEMPT" enum="A"/>
+      <value description="AS_DEFINED" enum="B"/>
+      <value description="OPPOSITE" enum="C"/>
+      <value description="SUBSCRIBE" enum="D"/>
+      <value description="REDEEM" enum="E"/>
+      <value description="LEND" enum="F"/>
+      <value description="BORROW" enum="G"/>
+    <field>
+  <group>
+<message>
+
+header
+
+8=FIX.4.4|9=len|35=E|49=CLIENT|56=SERVER|34=1001|52=20100121-12:33:24|
+66=319|394=2|68=2|73=2|
+    11=2001|67=1|55=GOOG|711=0|54=5|
+    11=2001|67=2|55=APPLE|711=0|54=1|
+10=777
+
+
+whole msg -
+8=FIX.4.4|9=len|35=E|49=CLIENT|56=SERVER|34=1001|52=20100121-12:33:24|66=319|394=2|68=2|73=2|11=2001|67=1|55=GOOG|711=0|54=5|11=2001|67=2|55=APPLE|711=0|54=1|10=777
+
+delimited -
+8=FIX.4.49=len35=E49=CLIENT56=SERVER34=100152=20100121-12:33:2466=319394=268=273=211=200167=155=GOOG711=054=511=200167=255=APPLE711=054=110=077
+
+
+

@@ -1,0 +1,36 @@
+
+    TODO
+
+        trace only required
+
+        remove expanded components [replace in copy with lookup children]
+
+        multiple FIX version in same stream - load all FIX specs, jump based on header
+
+
+        FIXT1.1 ??
+
+        indicate bad values for enum fields [if enums are in spec]
+
+
+
+    HISTORY
+
+
+      20010.01.27
+
+        fixspec takes spec arg - then compare FIX50SP2.xml with FIX44.xml
+
+        used FIX50SP2.xml as basis for fixspec... fixspec D works ok
+
+        FIX50SP2.xml generated from fiximate spec html files [and repo spec files Enums.xml and Fields.xml ]
+
+        fixtr show enum field values
+
+        group repeats : parse groups with n repeats
+
+        msg tracing - readable summary on stderr in passthrough mode
+
+        parse components with nested parse of the component
+
+        sample messages are mis-ordered a lot, so allow any ordering - gather all nodes into map for msg type expanded[id]=expanded map [no stack needed]
