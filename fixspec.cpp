@@ -22,14 +22,13 @@ int main(int argc, char *argv[])
 {
     // handle args
 
-
-    const char* szspecfile = "./spec/FIX44.xml";
+    string spec_path = fix_spec_path("44");
 
     if (argc<2)
     {
         fprintf(stderr, "USAGE: fixspec <msgtype>\n");
         fprintf(stderr, "  option -E                    : show field allowed enum values\n");
-        fprintf(stderr, "  option -S=<FIXspec.xml>      : use spec file FIXspec.xml\n");
+        fprintf(stderr, "  option -S=<FIX_VERSION>      : use spec file FIXspec.xml\n");
         exit(-1);
     }
 
@@ -45,13 +44,22 @@ int main(int argc, char *argv[])
 
         if (0==strncmp(szopt, "-S", 2))
         {
-            if (strlen(szopt)>3)
-                szspecfile = szopt+3;
+            if (strlen(szopt)>=3) {
+                spec_path = fix_spec_path(szopt+(szopt[2]=='=')+2);
+            }
+            else if (i < argc-1) {
+                spec_path = fix_spec_path(argv[++i]);
+            }
             else
+            {
                 fprintf(stderr,"Bad option -S\n"), exit(-1);
+                fprintf(stderr,"USAGE: fixspec {-S=<FIX_VERSION>}\n");
+                exit(-1);
+            }
         }
     }
 
+    const char *szspecfile = spec_path.c_str();
     fprintf(stderr,"Using spec : %s\n", szspecfile);
 
     // parse the spec, expand the components, show the spec for the message type

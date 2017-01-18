@@ -10,6 +10,15 @@
 #define _FIXTR_H_
 using namespace std;
 
+#define FIXTR_JOIN_(a, b) a ## b
+#define FIXTR_JOIN(a, b) FIXTR_JOIN_(a, b)
+#define FIXTR_STRINGIFY_(a) #a
+#define FIXTR_STRINGIFY(a) FIXTR_STRINGIFY_(a)
+
+inline
+string fix_spec_path(const char *vers) {
+    return std::string(FIXTR_STRINGIFY(FIXTR_SPEC_DIR)) + "/FIX" + vers + ".xml";
+}
 
 struct XNode;
 
