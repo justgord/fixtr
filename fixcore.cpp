@@ -20,6 +20,8 @@
 #include <libxml/parser.h>
 #include "fixcore.h"
 
+FILE *outfile = stdout;
+
 bool check_file_access(const std::string &path) {
     return (access(path.c_str(), R_OK) == 0);
 }
@@ -92,7 +94,7 @@ void trace_raw_fix(const char* sz, const char* msg="")
         if (buf[i]==0x01)
             buf[i]='|';
 
-    fprintf(stderr, "%s%s\n", msg, buf);
+    fprintf(outfile, "%s%s\n", msg, buf);
 }
 
 void print_node_xml(XNode* N, int nindent)
@@ -256,7 +258,7 @@ void MsgContext::trace_field()
 
     string field_name = field->atts["name"];
 
-    fprintf(stderr, "%3s %-15s : %s\n", fld.c_str(), field_name.c_str(), val.c_str());
+    fprintf(outfile, "%3s %-15s : %s\n", fld.c_str(), field_name.c_str(), val.c_str());
 }
 
 // SpecParser
@@ -854,7 +856,7 @@ void MessageGenerator::trace_field_value(XNode* xfield, string val)
         }
     }
 
-    fprintf(stderr, "%3s %-15s : %s             %s\n", field_id.c_str(), field_name.c_str(), val.c_str(), slongval.c_str());
+    fprintf(outfile, "%3s %-15s : %s             %s\n", field_id.c_str(), field_name.c_str(), val.c_str(), slongval.c_str());
 }
 
 
