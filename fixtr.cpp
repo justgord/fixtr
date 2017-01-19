@@ -230,7 +230,7 @@ int main(int argc, char *argv[])
 {
     // handle args
 
-    string spec_path = fix_spec_path("44");
+    string spec_name = "FIX44";
 
     if (argc==2 || argc==3)
     {
@@ -238,12 +238,12 @@ int main(int argc, char *argv[])
 
         if (0==strncmp(szopt, "-S", 2))
         {
-            if (strlen(szopt)>3)
+            if (strlen(szopt) > 3)
             {
-                spec_path = fix_spec_path(szopt+(szopt[2]=='=')+2);
+                spec_name = szopt + (szopt[2] == '=') + 2;
             }
             else if (argc == 3) {
-                spec_path = fix_spec_path(argv[2]);
+                spec_name = argv[2];
             }
             else
             {
@@ -259,13 +259,16 @@ int main(int argc, char *argv[])
         exit(-1);
     }
 
-    const char *szfile = spec_path.c_str();
-
-    if (access(szfile, R_OK))
+    string spec_path = fix_spec_path(spec_name);
+    if (spec_path.empty() || !check_file_access(spec_path))
     {
-        fprintf(stderr,"Cant read file [%s]\n", szfile);
+        fprintf(stderr,"Cant read spec file for %s\n", spec_name.c_str());
         exit(-1);
     }
+    else {
+        fprintf(stderr, "Reading %s\n", spec_path.c_str());
+    }
+    const char *szfile = spec_path.c_str();
 
     // parse the spec
 

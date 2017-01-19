@@ -15,10 +15,13 @@ using namespace std;
 #define FIXTR_STRINGIFY_(a) #a
 #define FIXTR_STRINGIFY(a) FIXTR_STRINGIFY_(a)
 
-inline
-string fix_spec_path(const char *vers) {
-    return std::string(FIXTR_STRINGIFY(FIXTR_SPEC_DIR)) + "/FIX" + vers + ".xml";
-}
+/* Return 'true' if a readable file exists at 'path', 'false' otherwise */
+bool check_file_access(const std::string &path);
+
+/* Search for fix_spec in common directories 
+ * Returns empty string if file does not exist
+ */
+string fix_spec_path(string filename);
 
 struct XNode;
 

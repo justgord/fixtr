@@ -15,10 +15,36 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
+#include <unistd.h>
 
 #include <libxml/parser.h>
 #include "fixcore.h"
 
+bool check_file_access(const std::string &path) {
+    return (access(path.c_str(), R_OK) == 0);
+}
+
+string fix_spec_path(string filename) {
+    // Ensure xml extension
+    if (filename.length() < 4 || filename.substr(filename.length() - 4) != ".xml") {
+        filename += ".xml";
+    }
+    if (check_file_access(filename)) {
+        return filename;
+    }
+    string pth = "./spec/" + filename;
+    if (!check_file_access(pth)) {
+#ifdef FIXTR_SPEC_DIR
+        pth = std::string(FIXTR_STRINGIFY(FIXTR_SPEC_DIR)) + "/" + filename;
+        if (!check_file_access(pth)) {
+            pth = "";
+        } 
+#else
+        pth = "";
+#endif
+    }
+    return pth;
+}
 
 string fix_time_now()
 {
