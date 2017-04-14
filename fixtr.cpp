@@ -11,6 +11,7 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
+#include <unistd.h>
 
 #include <libxml/parser.h>
 #include "fixcore.h"
@@ -229,22 +230,25 @@ int main(int argc, char *argv[])
 {
     // handle args
 
-    const char* szfile = "./spec/FIX44.xml";
+    string spec_name = "FIX44";
 
-    if (argc==2)
+    if (argc==2 || argc==3)
     {
         const char* szopt=argv[1];
 
         if (0==strncmp(szopt, "-S", 2))
         {
-            if (strlen(szopt)>3)
+            if (strlen(szopt) > 3)
             {
-                szfile = szopt+3;
+                spec_name = szopt + (szopt[2] == '=') + 2;
+            }
+            else if (argc == 3) {
+                spec_name = argv[2];
             }
             else
             {
                 fprintf(stderr,"Bad option -S\n"), exit(-1);
-                fprintf(stderr,"USAGE: fixtr {-S=./spec/FIXnn.xml} < fix_messages.fix\n");
+                fprintf(stderr,"USAGE: fixtr {-S=<FIX_VERSION>} < fix_messages.fix\n");
                 exit(-1);
             }
         }
@@ -255,11 +259,16 @@ int main(int argc, char *argv[])
         exit(-1);
     }
 
-    if (access(szfile, R_OK))
+    string spec_path = fix_spec_path(spec_name);
+    if (spec_path.empty() || !check_file_access(spec_path))
     {
-        fprintf(stderr,"Cant read file [%s]\n", szfile);
+        fprintf(stderr,"Cant read spec file for %s\n", spec_name.c_str());
         exit(-1);
     }
+    else {
+        fprintf(stderr, "Reading %s\n", spec_path.c_str());
+    }
+    const char *szfile = spec_path.c_str();
 
     // parse the spec
 

@@ -1,0 +1,11 @@
+build/*
+fixtr
+fixspec
+libfixcore.a
+CMakeCache.txt
+CMakeFiles/*
+cmake_install.cmake
+install_manifest.txt
+*.cbp
+.idea/*
+

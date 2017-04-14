@@ -10,6 +10,18 @@
 #define _FIXTR_H_
 using namespace std;
 
+#define FIXTR_JOIN_(a, b) a ## b
+#define FIXTR_JOIN(a, b) FIXTR_JOIN_(a, b)
+#define FIXTR_STRINGIFY_(a) #a
+#define FIXTR_STRINGIFY(a) FIXTR_STRINGIFY_(a)
+
+/* Return 'true' if a readable file exists at 'path', 'false' otherwise */
+bool check_file_access(const std::string &path);
+
+/* Search for fix_spec in common directories 
+ * Returns empty string if file does not exist
+ */
+string fix_spec_path(string filename);
 
 struct XNode;
 
